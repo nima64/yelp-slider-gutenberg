@@ -91,7 +91,6 @@ registerBlockType( 'create-block/yelp-reviews-slider-block', {
 			<div { ...useBlockProps() }>
 				{getBlockControls()}
 				<Edit {...props} />
-				{console.log(editMode)}
 			</div>
 		)
 

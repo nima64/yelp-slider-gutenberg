@@ -711,7 +711,7 @@ Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_1__["registerBlockType"])('cre
       }));
     };
 
-    return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", Object(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_3__["useBlockProps"])(), getBlockControls(), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_edit__WEBPACK_IMPORTED_MODULE_5__["default"], props), console.log(editMode));
+    return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", Object(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_3__["useBlockProps"])(), getBlockControls(), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_edit__WEBPACK_IMPORTED_MODULE_5__["default"], props));
   },
 
   /**
@@ -889,8 +889,8 @@ var ReviewSlider = /*#__PURE__*/function (_React$Component) {
   _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1___default()(ReviewSlider, [{
     key: "componentDidMount",
     value: function componentDidMount() {
-      var glideW = document.body.querySelector('.glide').offsetWidth;
-
+      // let script = document.createElement('script');
+      // script.innerHTML = `
       var getPerView = function getPerView(width) {
         if (width > 700) {
           return 3;
@@ -901,18 +901,22 @@ var ReviewSlider = /*#__PURE__*/function (_React$Component) {
         }
       };
 
-      var glideSetup = function glideSetup(width) {
+      var glideSetup = function glideSetup(element) {
+        var initW = element.offsetWidth;
         var glide = new Glide('.glide', {
-          perView: getPerView(width)
+          perView: getPerView(initW)
         }).mount();
         window.addEventListener('resize', function () {
+          var currentW = element.offsetWidth;
+          console.log('width ' + currentW);
           glide.update({
-            perView: getPerView(width)
+            perView: getPerView(currentW)
           });
         });
       };
 
-      glideSetup(glideW);
+      var glideE = document.body.querySelector('.glide');
+      glideSetup(glideE); // document.body.appendChild(script);
     }
   }, {
     key: "render",

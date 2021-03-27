@@ -49,7 +49,8 @@ export class ReviewSlider extends React.Component{
     }
 
     componentDidMount(){
-        const glideW = document.body.querySelector('.glide').offsetWidth;
+        // let script = document.createElement('script');
+        // script.innerHTML = `
         const getPerView = (width) =>{
             if (width > 700){
                 return 3;
@@ -59,15 +60,21 @@ export class ReviewSlider extends React.Component{
                 return 1;
             }
         }
-        const glideSetup = (width) => {
+        const glideSetup = (element) => {
+            let initW = element.offsetWidth;
             var glide = new Glide('.glide',{
-                perView:getPerView(width),
+                perView:getPerView(initW),
             }).mount();
             window.addEventListener('resize', function(){
-                glide.update({perView:getPerView(width)})
+                let currentW = element.offsetWidth;
+                console.log('width ' + currentW);
+                glide.update({perView:getPerView(currentW)});
             })
         }
-        glideSetup(glideW);
+        const glideE = document.body.querySelector('.glide');
+        glideSetup(glideE);
+        
+        // document.body.appendChild(script);
     }
 
     render(){
