@@ -35,9 +35,14 @@ function create_block_yelp_reviews_slider_block_init() {
     wp_register_script('glidejs',
         'https://cdn.jsdelivr.net/npm/@glidejs/glide@latest/dist/glide.min.js'
     );
+    wp_register_script('yelp-reviews-slider_create-script',
+        plugins_url('slider_script.js',__FILE__) ,
+    );
 
 	wp_enqueue_style('glide_styles');
 	wp_enqueue_script('glidejs');
+	wp_enqueue_script('yelp-reviews-slider_create-script');
+
 }
 
 function get_reviews_endpoint($request){

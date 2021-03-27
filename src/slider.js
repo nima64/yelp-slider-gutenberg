@@ -73,7 +73,7 @@ export class ReviewSlider extends React.Component{
         }
         const glideE = document.body.querySelector('.glide');
         glideSetup(glideE);
-        
+        // `
         // document.body.appendChild(script);
     }
 

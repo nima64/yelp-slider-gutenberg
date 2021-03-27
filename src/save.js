@@ -4,7 +4,7 @@
  * @see https://developer.wordpress.org/block-editor/packages/packages-i18n/
  */
 import { __ } from '@wordpress/i18n';
-
+import {ReviewSlider} from './slider';
 /**
  * React hook that is used to mark the block wrapper element.
  * It provides all the necessary props like the class name.
@@ -22,13 +22,25 @@ import { useBlockProps } from '@wordpress/block-editor';
  *
  * @return {WPElement} Element to render.
  */
-export default function save() {
+export default function save({attributes,setAttributes}) {
+	const getMissingText = () => {
+		return (
+			<p { ...useBlockProps.save() }>
+				{ __(
+					'Yelp Reviews Slider Block – hello from the saved content!',
+					'yelp-reviews-slider-block'
+				) }
+			</p>
+		)
+	}
 	return (
-		<p { ...useBlockProps.save() }>
-			{ __(
-				'Yelp Reviews Slider Block – hello from the saved content!',
-				'yelp-reviews-slider-block'
-			) }
-		</p>
+		<>
+		{
+			attributes.reviews?
+				<ReviewSlider cardsData={attributes.reviews}/>
+			:
+				getMissingText()
+		}
+		</>
 	);
 }
