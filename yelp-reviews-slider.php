@@ -35,17 +35,23 @@ function create_block_yelp_reviews_slider_block_init() {
     wp_register_script('glidejs',
         'https://cdn.jsdelivr.net/npm/@glidejs/glide@latest/dist/glide.min.js'
     );
-    wp_register_script('yelp-reviews-slider_create-script',
+    wp_register_script('yelp-reviews-slider_front-end',
         plugins_url('slider_script.js',__FILE__) ,
     );
 
 	wp_enqueue_style('glide_styles');
 	wp_enqueue_script('glidejs');
-	wp_enqueue_script('yelp-reviews-slider_create-script');
+	add_action('wp_enqueue_scripts','loadFrontEndScripts');
 
 }
 
-function get_reviews_endpoint($request){
+function loadFrontEndScripts(){
+	if (has_block('create-block/yelp-reviews-slider-block')) {
+		wp_enqueue_script('yelp-reviews-slider_front-end');
+	}
+}
+
+function reviews_endpoint($request){
 	$url = isset($_POST['url']) ? $_POST['url'] : ''; 
 	$api_key =  isset($_POST['key']) ? $_POST['key'] : '';
 	if (!empty($api_key) && !empty($url)){
@@ -66,7 +72,7 @@ function register_api_route(){
 		'yelp-reviews-slider',
 		'reviews',[
 			'methods' => 'POST',
-			'callback' => 'get_reviews_endpoint',
+			'callback' => 'reviews_endpoint',
 		]
 		
 	);
